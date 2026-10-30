@@ -1,0 +1,4 @@
+{
+  "missing_recall_floor": 0.59,
+  "_note": "Set from the first measured run on 2026-10-29 at 0.62 (MISSING recall 65/104). Lowered to 0.58 on 2026-10-30 for a recorded reason: adversarial review finding R3 showed a false MISSING when an instance attribute shadows a class method (self.send = ...), so kwargs on methods of non-closed classes reached through the constructor rule are now capped at SUSPECT (instance_may_shadow). That moved 4 true positives to SUSPECT (61/104 = 0.587). Precision is the release priority. Must not be lowered again without a recorded reason. Raised to 0.59 on 2026-10-30 after the third review: `testing` left the deny-list (numpy.testing and pandas.testing are public APIs), so numpy_seeded.py:104 `np.testing.assert_array_equals` moved from UNKNOWN denied to a true MISSING (62/104 = 0.596)."
+}
