@@ -1,0 +1,2056 @@
+{
+  "timestamp": "2026-10-30T06:39:14Z",
+  "python": "./fixtures/.venv/bin/python",
+  "versions": {
+    "numpy": "2.5.4",
+    "pandas": "3.1.0",
+    "requests": "2.34.2",
+    "yfinance": "1.7.0",
+    "python": "3.12.13"
+  },
+  "tool_target": {
+    "python": "3.12.13",
+    "executable": "./fixtures/.venv/bin/python",
+    "prefix": "./fixtures/.venv"
+  },
+  "cli_exit": 1,
+  "files": [
+    "fixtures/cases/hard_cases_clean.py",
+    "fixtures/cases/heldout/b01_closed_c_instances.py",
+    "fixtures/cases/heldout/b02_numpy_scalars.py",
+    "fixtures/cases/heldout/b03_pandas_instances.py",
+    "fixtures/cases/heldout/b04_threading_kw.py",
+    "fixtures/cases/heldout/b05_rebinding.py",
+    "fixtures/cases/heldout/b06_local_import_in_fn.py",
+    "fixtures/cases/heldout/b07_tuple_unpack.py",
+    "fixtures/cases/heldout/b08_star_numpy.py",
+    "fixtures/cases/heldout/b09_submod_misc.py",
+    "fixtures/cases/heldout/b10_from_submod.py",
+    "fixtures/cases/heldout/b11_typing_main_guard.py",
+    "fixtures/cases/heldout/b12_yf_more.py",
+    "fixtures/cases/heldout/b14_pathlib_instances.py",
+    "fixtures/cases/heldout/s01_groupby_agg.py",
+    "fixtures/cases/heldout/s02_read_csv_chain.py",
+    "fixtures/cases/heldout/s03_rng.py",
+    "fixtures/cases/heldout/s04_randomstate.py",
+    "fixtures/cases/heldout/s05_session.py",
+    "fixtures/cases/heldout/s06_yf_ticker.py",
+    "fixtures/cases/heldout/s07_yf_download.py",
+    "fixtures/cases/heldout/s08_pathlib.py",
+    "fixtures/cases/heldout/s09_datetime.py",
+    "fixtures/cases/heldout/s10_re.py",
+    "fixtures/cases/heldout/s11_subprocess.py",
+    "fixtures/cases/heldout/s12_logging.py",
+    "fixtures/cases/heldout/s13_argparse.py",
+    "fixtures/cases/heldout/s14_dataclasses.py",
+    "fixtures/cases/heldout/s15_enum.py",
+    "fixtures/cases/heldout/s16_typing.py",
+    "fixtures/cases/heldout/s17_collections.py",
+    "fixtures/cases/heldout/s18_functools.py",
+    "fixtures/cases/heldout/s19_itertools.py",
+    "fixtures/cases/heldout/s20_json.py",
+    "fixtures/cases/heldout/s21_open_encoding.py",
+    "fixtures/cases/heldout/s22_star_import.py",
+    "fixtures/cases/heldout/s23_import_as_sub.py",
+    "fixtures/cases/heldout/s24_class_attr.py",
+    "fixtures/cases/heldout/s25_nested_shadow.py",
+    "fixtures/cases/heldout/s26_shadow_local.py",
+    "fixtures/cases/heldout/s27_comprehension.py",
+    "fixtures/cases/heldout/s28_walrus.py",
+    "fixtures/cases/heldout/s29_global.py",
+    "fixtures/cases/heldout/s30_del.py",
+    "fixtures/cases/heldout/s31_with_as_np.py",
+    "fixtures/cases/heldout/s32_decorators.py",
+    "fixtures/cases/heldout/s33_fstrings.py",
+    "fixtures/cases/heldout/s34_param_named_pd.py",
+    "fixtures/cases/heldout/s35_lambda_param.py",
+    "fixtures/cases/heldout/s36_df_ops.py",
+    "fixtures/cases/heldout/s37_numpy_ops.py",
+    "fixtures/cases/heldout/s38_series_str.py",
+    "fixtures/cases/heldout/s39_requests_misc.py",
+    "fixtures/cases/heldout/s40_os_shutil.py",
+    "fixtures/cases/heldout/s41_class_methods.py",
+    "fixtures/cases/heldout/s42_asyncio.py",
+    "fixtures/cases/heldout/s43_stdlib_misc.py",
+    "fixtures/cases/heldout/s44_import_a_b.py",
+    "fixtures/cases/heldout/s45_np_dtypes.py",
+    "fixtures/cases/heldout/s46_pd_misc.py",
+    "fixtures/cases/heldout/s47_typing_overload.py",
+    "fixtures/cases/heldout/s48_contextlib.py",
+    "fixtures/cases/numpy_clean.py",
+    "fixtures/cases/numpy_seeded.py",
+    "fixtures/cases/pandas_clean.py",
+    "fixtures/cases/pandas_seeded.py",
+    "fixtures/cases/requests_clean.py",
+    "fixtures/cases/requests_seeded.py",
+    "fixtures/cases/yfinance_clean.py",
+    "fixtures/cases/yfinance_seeded.py"
+  ],
+  "thresholds": {
+    "missing_recall_floor": 0.59,
+    "_note": "Set from the first measured run on 2026-10-29 at 0.62 (MISSING recall 65/104). Lowered to 0.58 on 2026-10-30 for a recorded reason: adversarial review finding R3 showed a false MISSING when an instance attribute shadows a class method (self.send = ...), so kwargs on methods of non-closed classes reached through the constructor rule are now capped at SUSPECT (instance_may_shadow). That moved 4 true positives to SUSPECT (61/104 = 0.587). Precision is the release priority. Must not be lowered again without a recorded reason. Raised to 0.59 on 2026-10-30 after the third review: `testing` left the deny-list (numpy.testing and pandas.testing are public APIs), so numpy_seeded.py:104 `np.testing.assert_array_equals` moved from UNKNOWN denied to a true MISSING (62/104 = 0.596)."
+  },
+  "metrics": {
+    "missing": {
+      "tp": 62,
+      "fp": 0,
+      "fn": 42,
+      "precision": 1.0,
+      "recall": 0.5961538461538461,
+      "false_positives": [],
+      "false_negatives": [
+        {
+          "file": "fixtures/cases/numpy_seeded.py",
+          "line": 15,
+          "name": "number",
+          "kind": "kwarg",
+          "category": "invented_kwarg",
+          "expected": "SUSPECT"
+        },
+        {
+          "file": "fixtures/cases/numpy_seeded.py",
+          "line": 29,
+          "name": "dtyp",
+          "kind": "kwarg",
+          "category": "misspelled",
+          "expected": "SUSPECT"
+        },
+        {
+          "file": "fixtures/cases/numpy_seeded.py",
+          "line": 69,
+          "name": "header_text",
+          "kind": "kwarg",
+          "category": "invented_kwarg",
+          "expected": "SUSPECT"
+        },
+        {
+          "file": "fixtures/cases/numpy_seeded.py",
+          "line": 73,
+          "name": "ascending",
+          "kind": "kwarg",
+          "category": "invented_kwarg",
+          "expected": "SUSPECT"
+        },
+        {
+          "file": "fixtures/cases/numpy_seeded.py",
+          "line": 77,
+          "name": "algorithm",
+          "kind": "kwarg",
+          "category": "invented_kwarg",
+          "expected": "SUSPECT"
+        },
+        {
+          "file": "fixtures/cases/numpy_seeded.py",
+          "line": 96,
+          "name": "normal_sample",
+          "kind": "attribute",
+          "category": "invented_method_on_instance",
+          "expected": "UNKNOWN"
+        },
+        {
+          "file": "fixtures/cases/pandas_seeded.py",
+          "line": 66,
+          "name": "frequency",
+          "kind": "kwarg",
+          "category": "invented_kwarg_on_kwargs_func",
+          "expected": "UNKNOWN"
+        },
+        {
+          "file": "fixtures/cases/pandas_seeded.py",
+          "line": 70,
+          "name": "fillvalue",
+          "kind": "kwarg",
+          "category": "invented_kwarg_on_kwargs_func",
+          "expected": "UNKNOWN"
+        },
+        {
+          "file": "fixtures/cases/pandas_seeded.py",
+          "line": 74,
+          "name": "fil_method",
+          "kind": "kwarg",
+          "category": "invented_kwarg_on_kwargs_func",
+          "expected": "UNKNOWN"
+        },
+        {
+          "file": "fixtures/cases/pandas_seeded.py",
+          "line": 79,
+          "name": "append",
+          "kind": "attribute",
+          "category": "removed_in_version",
+          "expected": "SUSPECT"
+        },
+        {
+          "file": "fixtures/cases/pandas_seeded.py",
+          "line": 85,
+          "name": "ix",
+          "kind": "attribute",
+          "category": "removed_in_version",
+          "expected": "UNKNOWN"
+        },
+        {
+          "file": "fixtures/cases/pandas_seeded.py",
+          "line": 90,
+          "name": "iteritems",
+          "kind": "attribute",
+          "category": "removed_in_version",
+          "expected": "SUSPECT"
+        },
+        {
+          "file": "fixtures/cases/pandas_seeded.py",
+          "line": 96,
+          "name": "as_matrix",
+          "kind": "attribute",
+          "category": "removed_in_version",
+          "expected": "SUSPECT"
+        },
+        {
+          "file": "fixtures/cases/pandas_seeded.py",
+          "line": 101,
+          "name": "rolling_mean",
+          "kind": "attribute",
+          "category": "invented_method_on_instance",
+          "expected": "SUSPECT"
+        },
+        {
+          "file": "fixtures/cases/pandas_seeded.py",
+          "line": 106,
+          "name": "groupby_apply",
+          "kind": "attribute",
+          "category": "invented_method_on_instance",
+          "expected": "SUSPECT"
+        },
+        {
+          "file": "fixtures/cases/pandas_seeded.py",
+          "line": 111,
+          "name": "descending",
+          "kind": "kwarg",
+          "category": "invented_kwarg",
+          "expected": "SUSPECT"
+        },
+        {
+          "file": "fixtures/cases/pandas_seeded.py",
+          "line": 116,
+          "name": "tolist",
+          "kind": "attribute",
+          "category": "invented_method_on_instance",
+          "expected": "SUSPECT"
+        },
+        {
+          "file": "fixtures/cases/requests_seeded.py",
+          "line": 11,
+          "name": "timout",
+          "kind": "kwarg",
+          "category": "invented_kwarg_on_kwargs_func",
+          "expected": "UNKNOWN"
+        },
+        {
+          "file": "fixtures/cases/requests_seeded.py",
+          "line": 15,
+          "name": "retries",
+          "kind": "kwarg",
+          "category": "invented_kwarg_on_kwargs_func",
+          "expected": "UNKNOWN"
+        },
+        {
+          "file": "fixtures/cases/requests_seeded.py",
+          "line": 19,
+          "name": "param",
+          "kind": "kwarg",
+          "category": "invented_kwarg_on_kwargs_func",
+          "expected": "UNKNOWN"
+        },
+        {
+          "file": "fixtures/cases/requests_seeded.py",
+          "line": 23,
+          "name": "json_data",
+          "kind": "kwarg",
+          "category": "invented_kwarg_on_kwargs_func",
+          "expected": "UNKNOWN"
+        },
+        {
+          "file": "fixtures/cases/requests_seeded.py",
+          "line": 27,
+          "name": "follow_redirects",
+          "kind": "kwarg",
+          "category": "invented_kwarg_on_kwargs_func",
+          "expected": "UNKNOWN"
+        },
+        {
+          "file": "fixtures/cases/requests_seeded.py",
+          "line": 31,
+          "name": "allow_redirect",
+          "kind": "kwarg",
+          "category": "invented_kwarg_on_kwargs_func",
+          "expected": "UNKNOWN"
+        },
+        {
+          "file": "fixtures/cases/requests_seeded.py",
+          "line": 58,
+          "name": "set_timeout",
+          "kind": "attribute",
+          "category": "invented_method_on_instance",
+          "expected": "SUSPECT"
+        },
+        {
+          "file": "fixtures/cases/requests_seeded.py",
+          "line": 64,
+          "name": "verify_ssl",
+          "kind": "kwarg",
+          "category": "invented_kwarg_on_kwargs_func",
+          "expected": "UNKNOWN"
+        },
+        {
+          "file": "fixtures/cases/requests_seeded.py",
+          "line": 69,
+          "name": "raise_on_error",
+          "kind": "kwarg",
+          "category": "invented_kwarg_on_kwargs_func",
+          "expected": "UNKNOWN"
+        },
+        {
+          "file": "fixtures/cases/requests_seeded.py",
+          "line": 83,
+          "name": "status",
+          "kind": "attribute",
+          "category": "invented_method_on_instance",
+          "expected": "UNKNOWN"
+        },
+        {
+          "file": "fixtures/cases/requests_seeded.py",
+          "line": 85,
+          "name": "get_json",
+          "kind": "attribute",
+          "category": "invented_method_on_instance",
+          "expected": "SUSPECT"
+        },
+        {
+          "file": "fixtures/cases/requests_seeded.py",
+          "line": 114,
+          "name": "parsed_json",
+          "kind": "attribute",
+          "category": "invented_method_on_instance",
+          "expected": "UNKNOWN"
+        },
+        {
+          "file": "fixtures/cases/requests_seeded.py",
+          "line": 119,
+          "name": "is_success",
+          "kind": "attribute",
+          "category": "invented_method_on_instance",
+          "expected": "UNKNOWN"
+        },
+        {
+          "file": "fixtures/cases/yfinance_seeded.py",
+          "line": 12,
+          "name": "perid",
+          "kind": "kwarg",
+          "category": "invented_kwarg_on_kwargs_func",
+          "expected": "UNKNOWN"
+        },
+        {
+          "file": "fixtures/cases/yfinance_seeded.py",
+          "line": 25,
+          "name": "perod",
+          "kind": "kwarg",
+          "category": "invented_kwarg_on_kwargs_func",
+          "expected": "UNKNOWN"
+        },
+        {
+          "file": "fixtures/cases/yfinance_seeded.py",
+          "line": 30,
+          "name": "get_price",
+          "kind": "attribute",
+          "category": "invented_method_on_instance",
+          "expected": "SUSPECT"
+        },
+        {
+          "file": "fixtures/cases/yfinance_seeded.py",
+          "line": 35,
+          "name": "price_history",
+          "kind": "attribute",
+          "category": "invented_method_on_instance",
+          "expected": "UNKNOWN"
+        },
+        {
+          "file": "fixtures/cases/yfinance_seeded.py",
+          "line": 40,
+          "name": "get_eps_history",
+          "kind": "attribute",
+          "category": "invented_method_on_instance",
+          "expected": "SUSPECT"
+        },
+        {
+          "file": "fixtures/cases/yfinance_seeded.py",
+          "line": 45,
+          "name": "limit",
+          "kind": "kwarg",
+          "category": "invented_kwarg",
+          "expected": "SUSPECT"
+        },
+        {
+          "file": "fixtures/cases/yfinance_seeded.py",
+          "line": 50,
+          "name": "years",
+          "kind": "kwarg",
+          "category": "invented_kwarg",
+          "expected": "SUSPECT"
+        },
+        {
+          "file": "fixtures/cases/yfinance_seeded.py",
+          "line": 55,
+          "name": "calls_only",
+          "kind": "kwarg",
+          "category": "invented_kwarg",
+          "expected": "SUSPECT"
+        },
+        {
+          "file": "fixtures/cases/yfinance_seeded.py",
+          "line": 60,
+          "name": "bogus_flag",
+          "kind": "kwarg",
+          "category": "invented_kwarg_on_kwargs_func",
+          "expected": "UNKNOWN"
+        },
+        {
+          "file": "fixtures/cases/yfinance_seeded.py",
+          "line": 92,
+          "name": "histroy",
+          "kind": "attribute",
+          "category": "misspelled",
+          "expected": "SUSPECT"
+        },
+        {
+          "file": "fixtures/cases/yfinance_seeded.py",
+          "line": 97,
+          "name": "moving_average",
+          "kind": "attribute",
+          "category": "invented_method_on_instance",
+          "expected": "UNKNOWN"
+        },
+        {
+          "file": "fixtures/cases/yfinance_seeded.py",
+          "line": 102,
+          "name": "to_list",
+          "kind": "attribute",
+          "category": "invented_method_on_instance",
+          "expected": "UNKNOWN"
+        }
+      ],
+      "by_category": {
+        "wrong_module_path": {
+          "tp": 5,
+          "fn": 0,
+          "recall": 1.0
+        },
+        "invented_function": {
+          "tp": 14,
+          "fn": 0,
+          "recall": 1.0
+        },
+        "misspelled": {
+          "tp": 16,
+          "fn": 2,
+          "recall": 0.8888888888888888
+        },
+        "invented_kwarg": {
+          "tp": 7,
+          "fn": 8,
+          "recall": 0.4666666666666667
+        },
+        "wrong_place": {
+          "tp": 7,
+          "fn": 0,
+          "recall": 1.0
+        },
+        "removed_in_version": {
+          "tp": 11,
+          "fn": 4,
+          "recall": 0.7333333333333333
+        },
+        "invented_method_on_instance": {
+          "tp": 2,
+          "fn": 14,
+          "recall": 0.125
+        },
+        "invented_kwarg_on_kwargs_func": {
+          "tp": 0,
+          "fn": 14,
+          "recall": 0.0
+        }
+      }
+    },
+    "missing_or_suspect": {
+      "tp": 81,
+      "fp": 5,
+      "fn": 23,
+      "precision": 0.9418604651162791,
+      "recall": 0.7788461538461539,
+      "false_positives": [
+        {
+          "file": "fixtures/cases/hard_cases_clean.py",
+          "line": 99,
+          "col": 18,
+          "name": "start",
+          "kind": "kwarg",
+          "verdict": "SUSPECT",
+          "reason": "untrusted_signature"
+        },
+        {
+          "file": "fixtures/cases/hard_cases_clean.py",
+          "line": 100,
+          "col": 21,
+          "name": "sig",
+          "kind": "kwarg",
+          "verdict": "SUSPECT",
+          "reason": "untrusted_signature"
+        },
+        {
+          "file": "fixtures/cases/hard_cases_clean.py",
+          "line": 129,
+          "col": 15,
+          "name": "tz_localize",
+          "kind": "attribute",
+          "verdict": "SUSPECT",
+          "reason": "instance_attr_not_on_class"
+        },
+        {
+          "file": "fixtures/cases/hard_cases_clean.py",
+          "line": 129,
+          "col": 39,
+          "name": "normalize",
+          "kind": "attribute",
+          "verdict": "SUSPECT",
+          "reason": "instance_attr_not_on_class"
+        },
+        {
+          "file": "fixtures/cases/hard_cases_clean.py",
+          "line": 174,
+          "col": 9,
+          "name": "rolling_mean",
+          "kind": "attribute",
+          "verdict": "SUSPECT",
+          "reason": "instance_attr_not_on_class"
+        }
+      ],
+      "false_negatives": [
+        {
+          "file": "fixtures/cases/numpy_seeded.py",
+          "line": 96,
+          "name": "normal_sample",
+          "kind": "attribute",
+          "category": "invented_method_on_instance",
+          "expected": "UNKNOWN"
+        },
+        {
+          "file": "fixtures/cases/pandas_seeded.py",
+          "line": 66,
+          "name": "frequency",
+          "kind": "kwarg",
+          "category": "invented_kwarg_on_kwargs_func",
+          "expected": "UNKNOWN"
+        },
+        {
+          "file": "fixtures/cases/pandas_seeded.py",
+          "line": 70,
+          "name": "fillvalue",
+          "kind": "kwarg",
+          "category": "invented_kwarg_on_kwargs_func",
+          "expected": "UNKNOWN"
+        },
+        {
+          "file": "fixtures/cases/pandas_seeded.py",
+          "line": 74,
+          "name": "fil_method",
+          "kind": "kwarg",
+          "category": "invented_kwarg_on_kwargs_func",
+          "expected": "UNKNOWN"
+        },
+        {
+          "file": "fixtures/cases/pandas_seeded.py",
+          "line": 79,
+          "name": "append",
+          "kind": "attribute",
+          "category": "removed_in_version",
+          "expected": "SUSPECT"
+        },
+        {
+          "file": "fixtures/cases/pandas_seeded.py",
+          "line": 85,
+          "name": "ix",
+          "kind": "attribute",
+          "category": "removed_in_version",
+          "expected": "UNKNOWN"
+        },
+        {
+          "file": "fixtures/cases/requests_seeded.py",
+          "line": 11,
+          "name": "timout",
+          "kind": "kwarg",
+          "category": "invented_kwarg_on_kwargs_func",
+          "expected": "UNKNOWN"
+        },
+        {
+          "file": "fixtures/cases/requests_seeded.py",
+          "line": 15,
+          "name": "retries",
+          "kind": "kwarg",
+          "category": "invented_kwarg_on_kwargs_func",
+          "expected": "UNKNOWN"
+        },
+        {
+          "file": "fixtures/cases/requests_seeded.py",
+          "line": 19,
+          "name": "param",
+          "kind": "kwarg",
+          "category": "invented_kwarg_on_kwargs_func",
+          "expected": "UNKNOWN"
+        },
+        {
+          "file": "fixtures/cases/requests_seeded.py",
+          "line": 23,
+          "name": "json_data",
+          "kind": "kwarg",
+          "category": "invented_kwarg_on_kwargs_func",
+          "expected": "UNKNOWN"
+        },
+        {
+          "file": "fixtures/cases/requests_seeded.py",
+          "line": 27,
+          "name": "follow_redirects",
+          "kind": "kwarg",
+          "category": "invented_kwarg_on_kwargs_func",
+          "expected": "UNKNOWN"
+        },
+        {
+          "file": "fixtures/cases/requests_seeded.py",
+          "line": 31,
+          "name": "allow_redirect",
+          "kind": "kwarg",
+          "category": "invented_kwarg_on_kwargs_func",
+          "expected": "UNKNOWN"
+        },
+        {
+          "file": "fixtures/cases/requests_seeded.py",
+          "line": 64,
+          "name": "verify_ssl",
+          "kind": "kwarg",
+          "category": "invented_kwarg_on_kwargs_func",
+          "expected": "UNKNOWN"
+        },
+        {
+          "file": "fixtures/cases/requests_seeded.py",
+          "line": 69,
+          "name": "raise_on_error",
+          "kind": "kwarg",
+          "category": "invented_kwarg_on_kwargs_func",
+          "expected": "UNKNOWN"
+        },
+        {
+          "file": "fixtures/cases/requests_seeded.py",
+          "line": 83,
+          "name": "status",
+          "kind": "attribute",
+          "category": "invented_method_on_instance",
+          "expected": "UNKNOWN"
+        },
+        {
+          "file": "fixtures/cases/requests_seeded.py",
+          "line": 114,
+          "name": "parsed_json",
+          "kind": "attribute",
+          "category": "invented_method_on_instance",
+          "expected": "UNKNOWN"
+        },
+        {
+          "file": "fixtures/cases/requests_seeded.py",
+          "line": 119,
+          "name": "is_success",
+          "kind": "attribute",
+          "category": "invented_method_on_instance",
+          "expected": "UNKNOWN"
+        },
+        {
+          "file": "fixtures/cases/yfinance_seeded.py",
+          "line": 12,
+          "name": "perid",
+          "kind": "kwarg",
+          "category": "invented_kwarg_on_kwargs_func",
+          "expected": "UNKNOWN"
+        },
+        {
+          "file": "fixtures/cases/yfinance_seeded.py",
+          "line": 25,
+          "name": "perod",
+          "kind": "kwarg",
+          "category": "invented_kwarg_on_kwargs_func",
+          "expected": "UNKNOWN"
+        },
+        {
+          "file": "fixtures/cases/yfinance_seeded.py",
+          "line": 35,
+          "name": "price_history",
+          "kind": "attribute",
+          "category": "invented_method_on_instance",
+          "expected": "UNKNOWN"
+        },
+        {
+          "file": "fixtures/cases/yfinance_seeded.py",
+          "line": 60,
+          "name": "bogus_flag",
+          "kind": "kwarg",
+          "category": "invented_kwarg_on_kwargs_func",
+          "expected": "UNKNOWN"
+        },
+        {
+          "file": "fixtures/cases/yfinance_seeded.py",
+          "line": 97,
+          "name": "moving_average",
+          "kind": "attribute",
+          "category": "invented_method_on_instance",
+          "expected": "UNKNOWN"
+        },
+        {
+          "file": "fixtures/cases/yfinance_seeded.py",
+          "line": 102,
+          "name": "to_list",
+          "kind": "attribute",
+          "category": "invented_method_on_instance",
+          "expected": "UNKNOWN"
+        }
+      ],
+      "by_category": {
+        "wrong_module_path": {
+          "tp": 5,
+          "fn": 0,
+          "recall": 1.0
+        },
+        "invented_function": {
+          "tp": 14,
+          "fn": 0,
+          "recall": 1.0
+        },
+        "misspelled": {
+          "tp": 18,
+          "fn": 0,
+          "recall": 1.0
+        },
+        "invented_kwarg": {
+          "tp": 15,
+          "fn": 0,
+          "recall": 1.0
+        },
+        "wrong_place": {
+          "tp": 7,
+          "fn": 0,
+          "recall": 1.0
+        },
+        "removed_in_version": {
+          "tp": 13,
+          "fn": 2,
+          "recall": 0.8666666666666667
+        },
+        "invented_method_on_instance": {
+          "tp": 9,
+          "fn": 7,
+          "recall": 0.5625
+        },
+        "invented_kwarg_on_kwargs_func": {
+          "tp": 0,
+          "fn": 14,
+          "recall": 0.0
+        }
+      }
+    },
+    "conformance": {
+      "total": 104,
+      "conforming": 100,
+      "matrix": {
+        "MISSING->MISSING": 62,
+        "SUSPECT->NOT_CHECKED": 1,
+        "SUSPECT->SUSPECT": 19,
+        "UNKNOWN->NOT_CHECKED": 3,
+        "UNKNOWN->UNKNOWN": 19
+      },
+      "labels": [
+        {
+          "file": "fixtures/cases/numpy_seeded.py",
+          "line": 3,
+          "name": "numpy.linalgg",
+          "kind": "module",
+          "category": "wrong_module_path",
+          "hallucination": true,
+          "expected": "MISSING",
+          "actual": "MISSING",
+          "reason": "not_found",
+          "conforms": true
+        },
+        {
+          "file": "fixtures/cases/numpy_seeded.py",
+          "line": 4,
+          "name": "matrix_inverse",
+          "kind": "attribute",
+          "category": "invented_function",
+          "hallucination": true,
+          "expected": "MISSING",
+          "actual": "MISSING",
+          "reason": "not_found",
+          "conforms": true
+        },
+        {
+          "file": "fixtures/cases/numpy_seeded.py",
+          "line": 9,
+          "name": "linspce",
+          "kind": "attribute",
+          "category": "misspelled",
+          "hallucination": true,
+          "expected": "MISSING",
+          "actual": "MISSING",
+          "reason": "not_found",
+          "conforms": true
+        },
+        {
+          "file": "fixtures/cases/numpy_seeded.py",
+          "line": 15,
+          "name": "number",
+          "kind": "kwarg",
+          "category": "invented_kwarg",
+          "hallucination": true,
+          "expected": "SUSPECT",
+          "actual": "SUSPECT",
+          "reason": "untrusted_signature",
+          "conforms": true
+        },
+        {
+          "file": "fixtures/cases/numpy_seeded.py",
+          "line": 20,
+          "name": "moving_average",
+          "kind": "attribute",
+          "category": "invented_function",
+          "hallucination": true,
+          "expected": "MISSING",
+          "actual": "MISSING",
+          "reason": "not_found",
+          "conforms": true
+        },
+        {
+          "file": "fixtures/cases/numpy_seeded.py",
+          "line": 25,
+          "name": "standard_deviation",
+          "kind": "attribute",
+          "category": "invented_function",
+          "hallucination": true,
+          "expected": "MISSING",
+          "actual": "MISSING",
+          "reason": "not_found",
+          "conforms": true
+        },
+        {
+          "file": "fixtures/cases/numpy_seeded.py",
+          "line": 29,
+          "name": "dtyp",
+          "kind": "kwarg",
+          "category": "misspelled",
+          "hallucination": true,
+          "expected": "SUSPECT",
+          "actual": "SUSPECT",
+          "reason": "untrusted_signature",
+          "conforms": true
+        },
+        {
+          "file": "fixtures/cases/numpy_seeded.py",
+          "line": 33,
+          "name": "dtyp",
+          "kind": "kwarg",
+          "category": "misspelled",
+          "hallucination": true,
+          "expected": "MISSING",
+          "actual": "MISSING",
+          "reason": "not_in_signature",
+          "conforms": true
+        },
+        {
+          "file": "fixtures/cases/numpy_seeded.py",
+          "line": 37,
+          "name": "DataFrame",
+          "kind": "attribute",
+          "category": "wrong_place",
+          "hallucination": true,
+          "expected": "MISSING",
+          "actual": "MISSING",
+          "reason": "not_found",
+          "conforms": true
+        },
+        {
+          "file": "fixtures/cases/numpy_seeded.py",
+          "line": 41,
+          "name": "float_",
+          "kind": "attribute",
+          "category": "removed_in_version",
+          "hallucination": true,
+          "expected": "MISSING",
+          "actual": "MISSING",
+          "reason": "not_found",
+          "conforms": true
+        },
+        {
+          "file": "fixtures/cases/numpy_seeded.py",
+          "line": 45,
+          "name": "trapz",
+          "kind": "attribute",
+          "category": "removed_in_version",
+          "hallucination": true,
+          "expected": "MISSING",
+          "actual": "MISSING",
+          "reason": "not_found",
+          "conforms": true
+        },
+        {
+          "file": "fixtures/cases/numpy_seeded.py",
+          "line": 49,
+          "name": "in1d",
+          "kind": "attribute",
+          "category": "removed_in_version",
+          "hallucination": true,
+          "expected": "MISSING",
+          "actual": "MISSING",
+          "reason": "not_found",
+          "conforms": true
+        },
+        {
+          "file": "fixtures/cases/numpy_seeded.py",
+          "line": 53,
+          "name": "NaN",
+          "kind": "attribute",
+          "category": "removed_in_version",
+          "hallucination": true,
+          "expected": "MISSING",
+          "actual": "MISSING",
+          "reason": "not_found",
+          "conforms": true
+        },
+        {
+          "file": "fixtures/cases/numpy_seeded.py",
+          "line": 57,
+          "name": "product",
+          "kind": "attribute",
+          "category": "removed_in_version",
+          "hallucination": true,
+          "expected": "MISSING",
+          "actual": "MISSING",
+          "reason": "not_found",
+          "conforms": true
+        },
+        {
+          "file": "fixtures/cases/numpy_seeded.py",
+          "line": 61,
+          "name": "read_csv",
+          "kind": "attribute",
+          "category": "wrong_place",
+          "hallucination": true,
+          "expected": "MISSING",
+          "actual": "MISSING",
+          "reason": "not_found",
+          "conforms": true
+        },
+        {
+          "file": "fixtures/cases/numpy_seeded.py",
+          "line": 65,
+          "name": "delimeter",
+          "kind": "kwarg",
+          "category": "misspelled",
+          "hallucination": true,
+          "expected": "MISSING",
+          "actual": "MISSING",
+          "reason": "not_in_signature",
+          "conforms": true
+        },
+        {
+          "file": "fixtures/cases/numpy_seeded.py",
+          "line": 69,
+          "name": "header_text",
+          "kind": "kwarg",
+          "category": "invented_kwarg",
+          "hallucination": true,
+          "expected": "SUSPECT",
+          "actual": "SUSPECT",
+          "reason": "untrusted_signature",
+          "conforms": true
+        },
+        {
+          "file": "fixtures/cases/numpy_seeded.py",
+          "line": 73,
+          "name": "ascending",
+          "kind": "kwarg",
+          "category": "invented_kwarg",
+          "hallucination": true,
+          "expected": "SUSPECT",
+          "actual": "SUSPECT",
+          "reason": "untrusted_signature",
+          "conforms": true
+        },
+        {
+          "file": "fixtures/cases/numpy_seeded.py",
+          "line": 77,
+          "name": "algorithm",
+          "kind": "kwarg",
+          "category": "invented_kwarg",
+          "hallucination": true,
+          "expected": "SUSPECT",
+          "actual": "SUSPECT",
+          "reason": "untrusted_signature",
+          "conforms": true
+        },
+        {
+          "file": "fixtures/cases/numpy_seeded.py",
+          "line": 81,
+          "name": "linalgg",
+          "kind": "attribute",
+          "category": "misspelled",
+          "hallucination": true,
+          "expected": "MISSING",
+          "actual": "MISSING",
+          "reason": "not_found",
+          "conforms": true
+        },
+        {
+          "file": "fixtures/cases/numpy_seeded.py",
+          "line": 86,
+          "name": "randn_matrix",
+          "kind": "attribute",
+          "category": "invented_method_on_instance",
+          "hallucination": true,
+          "expected": "MISSING",
+          "actual": "MISSING",
+          "reason": "not_found",
+          "conforms": true
+        },
+        {
+          "file": "fixtures/cases/numpy_seeded.py",
+          "line": 91,
+          "name": "size_bytes",
+          "kind": "attribute",
+          "category": "invented_method_on_instance",
+          "hallucination": true,
+          "expected": "MISSING",
+          "actual": "MISSING",
+          "reason": "not_found",
+          "conforms": true
+        },
+        {
+          "file": "fixtures/cases/numpy_seeded.py",
+          "line": 96,
+          "name": "normal_sample",
+          "kind": "attribute",
+          "category": "invented_method_on_instance",
+          "hallucination": true,
+          "expected": "UNKNOWN",
+          "actual": "UNKNOWN",
+          "reason": "not_a_class",
+          "conforms": true
+        },
+        {
+          "file": "fixtures/cases/numpy_seeded.py",
+          "line": 100,
+          "name": "row_stack",
+          "kind": "attribute",
+          "category": "removed_in_version",
+          "hallucination": true,
+          "expected": "MISSING",
+          "actual": "MISSING",
+          "reason": "not_found",
+          "conforms": true
+        },
+        {
+          "file": "fixtures/cases/numpy_seeded.py",
+          "line": 104,
+          "name": "assert_array_equals",
+          "kind": "attribute",
+          "category": "misspelled",
+          "hallucination": true,
+          "expected": "MISSING",
+          "actual": "MISSING",
+          "reason": "not_found",
+          "conforms": true
+        },
+        {
+          "file": "fixtures/cases/pandas_seeded.py",
+          "line": 5,
+          "name": "pandas.plotting.extras",
+          "kind": "module",
+          "category": "wrong_module_path",
+          "hallucination": true,
+          "expected": "MISSING",
+          "actual": "MISSING",
+          "reason": "not_found",
+          "conforms": true
+        },
+        {
+          "file": "fixtures/cases/pandas_seeded.py",
+          "line": 6,
+          "name": "read_csvv",
+          "kind": "attribute",
+          "category": "wrong_module_path",
+          "hallucination": true,
+          "expected": "MISSING",
+          "actual": "MISSING",
+          "reason": "not_found",
+          "conforms": true
+        },
+        {
+          "file": "fixtures/cases/pandas_seeded.py",
+          "line": 13,
+          "name": "index_coll",
+          "kind": "kwarg",
+          "category": "misspelled",
+          "hallucination": true,
+          "expected": "MISSING",
+          "actual": "MISSING",
+          "reason": "not_in_signature",
+          "conforms": true
+        },
+        {
+          "file": "fixtures/cases/pandas_seeded.py",
+          "line": 18,
+          "name": "header_row",
+          "kind": "kwarg",
+          "category": "invented_kwarg",
+          "hallucination": true,
+          "expected": "MISSING",
+          "actual": "MISSING",
+          "reason": "not_in_signature",
+          "conforms": true
+        },
+        {
+          "file": "fixtures/cases/pandas_seeded.py",
+          "line": 22,
+          "name": "read_excell",
+          "kind": "attribute",
+          "category": "misspelled",
+          "hallucination": true,
+          "expected": "MISSING",
+          "actual": "MISSING",
+          "reason": "not_found",
+          "conforms": true
+        },
+        {
+          "file": "fixtures/cases/pandas_seeded.py",
+          "line": 26,
+          "name": "colums",
+          "kind": "kwarg",
+          "category": "misspelled",
+          "hallucination": true,
+          "expected": "MISSING",
+          "actual": "MISSING",
+          "reason": "not_in_signature",
+          "conforms": true
+        },
+        {
+          "file": "fixtures/cases/pandas_seeded.py",
+          "line": 30,
+          "name": "ignore_idx",
+          "kind": "kwarg",
+          "category": "misspelled",
+          "hallucination": true,
+          "expected": "MISSING",
+          "actual": "MISSING",
+          "reason": "not_in_signature",
+          "conforms": true
+        },
+        {
+          "file": "fixtures/cases/pandas_seeded.py",
+          "line": 34,
+          "name": "concat_frames",
+          "kind": "attribute",
+          "category": "invented_function",
+          "hallucination": true,
+          "expected": "MISSING",
+          "actual": "MISSING",
+          "reason": "not_found",
+          "conforms": true
+        },
+        {
+          "file": "fixtures/cases/pandas_seeded.py",
+          "line": 38,
+          "name": "suffix",
+          "kind": "kwarg",
+          "category": "misspelled",
+          "hallucination": true,
+          "expected": "MISSING",
+          "actual": "MISSING",
+          "reason": "not_in_signature",
+          "conforms": true
+        },
+        {
+          "file": "fixtures/cases/pandas_seeded.py",
+          "line": 42,
+          "name": "linspace",
+          "kind": "attribute",
+          "category": "wrong_place",
+          "hallucination": true,
+          "expected": "MISSING",
+          "actual": "MISSING",
+          "reason": "not_found",
+          "conforms": true
+        },
+        {
+          "file": "fixtures/cases/pandas_seeded.py",
+          "line": 46,
+          "name": "rolling_mean",
+          "kind": "attribute",
+          "category": "removed_in_version",
+          "hallucination": true,
+          "expected": "MISSING",
+          "actual": "MISSING",
+          "reason": "not_found",
+          "conforms": true
+        },
+        {
+          "file": "fixtures/cases/pandas_seeded.py",
+          "line": 50,
+          "name": "Int64Index",
+          "kind": "attribute",
+          "category": "removed_in_version",
+          "hallucination": true,
+          "expected": "MISSING",
+          "actual": "MISSING",
+          "reason": "not_found",
+          "conforms": true
+        },
+        {
+          "file": "fixtures/cases/pandas_seeded.py",
+          "line": 54,
+          "name": "Panel",
+          "kind": "attribute",
+          "category": "removed_in_version",
+          "hallucination": true,
+          "expected": "MISSING",
+          "actual": "MISSING",
+          "reason": "not_found",
+          "conforms": true
+        },
+        {
+          "file": "fixtures/cases/pandas_seeded.py",
+          "line": 58,
+          "name": "Dataframe",
+          "kind": "attribute",
+          "category": "misspelled",
+          "hallucination": true,
+          "expected": "MISSING",
+          "actual": "MISSING",
+          "reason": "not_found",
+          "conforms": true
+        },
+        {
+          "file": "fixtures/cases/pandas_seeded.py",
+          "line": 62,
+          "name": "formatt",
+          "kind": "kwarg",
+          "category": "misspelled",
+          "hallucination": true,
+          "expected": "MISSING",
+          "actual": "MISSING",
+          "reason": "not_in_signature",
+          "conforms": true
+        },
+        {
+          "file": "fixtures/cases/pandas_seeded.py",
+          "line": 66,
+          "name": "frequency",
+          "kind": "kwarg",
+          "category": "invented_kwarg_on_kwargs_func",
+          "hallucination": true,
+          "expected": "UNKNOWN",
+          "actual": "UNKNOWN",
+          "reason": "var_keyword",
+          "conforms": true
+        },
+        {
+          "file": "fixtures/cases/pandas_seeded.py",
+          "line": 70,
+          "name": "fillvalue",
+          "kind": "kwarg",
+          "category": "invented_kwarg_on_kwargs_func",
+          "hallucination": true,
+          "expected": "UNKNOWN",
+          "actual": "UNKNOWN",
+          "reason": "var_keyword",
+          "conforms": true
+        },
+        {
+          "file": "fixtures/cases/pandas_seeded.py",
+          "line": 74,
+          "name": "fil_method",
+          "kind": "kwarg",
+          "category": "invented_kwarg_on_kwargs_func",
+          "hallucination": true,
+          "expected": "UNKNOWN",
+          "actual": "NOT_CHECKED",
+          "reason": null,
+          "conforms": false
+        },
+        {
+          "file": "fixtures/cases/pandas_seeded.py",
+          "line": 79,
+          "name": "append",
+          "kind": "attribute",
+          "category": "removed_in_version",
+          "hallucination": true,
+          "expected": "SUSPECT",
+          "actual": "NOT_CHECKED",
+          "reason": null,
+          "conforms": false
+        },
+        {
+          "file": "fixtures/cases/pandas_seeded.py",
+          "line": 85,
+          "name": "ix",
+          "kind": "attribute",
+          "category": "removed_in_version",
+          "hallucination": true,
+          "expected": "UNKNOWN",
+          "actual": "UNKNOWN",
+          "reason": "instance_data_attr",
+          "conforms": true
+        },
+        {
+          "file": "fixtures/cases/pandas_seeded.py",
+          "line": 90,
+          "name": "iteritems",
+          "kind": "attribute",
+          "category": "removed_in_version",
+          "hallucination": true,
+          "expected": "SUSPECT",
+          "actual": "SUSPECT",
+          "reason": "instance_attr_not_on_class",
+          "conforms": true
+        },
+        {
+          "file": "fixtures/cases/pandas_seeded.py",
+          "line": 96,
+          "name": "as_matrix",
+          "kind": "attribute",
+          "category": "removed_in_version",
+          "hallucination": true,
+          "expected": "SUSPECT",
+          "actual": "SUSPECT",
+          "reason": "instance_attr_not_on_class",
+          "conforms": true
+        },
+        {
+          "file": "fixtures/cases/pandas_seeded.py",
+          "line": 101,
+          "name": "rolling_mean",
+          "kind": "attribute",
+          "category": "invented_method_on_instance",
+          "hallucination": true,
+          "expected": "SUSPECT",
+          "actual": "SUSPECT",
+          "reason": "instance_attr_not_on_class",
+          "conforms": true
+        },
+        {
+          "file": "fixtures/cases/pandas_seeded.py",
+          "line": 106,
+          "name": "groupby_apply",
+          "kind": "attribute",
+          "category": "invented_method_on_instance",
+          "hallucination": true,
+          "expected": "SUSPECT",
+          "actual": "SUSPECT",
+          "reason": "instance_attr_not_on_class",
+          "conforms": true
+        },
+        {
+          "file": "fixtures/cases/pandas_seeded.py",
+          "line": 111,
+          "name": "descending",
+          "kind": "kwarg",
+          "category": "invented_kwarg",
+          "hallucination": true,
+          "expected": "SUSPECT",
+          "actual": "SUSPECT",
+          "reason": "instance_may_shadow",
+          "conforms": true
+        },
+        {
+          "file": "fixtures/cases/pandas_seeded.py",
+          "line": 116,
+          "name": "tolist",
+          "kind": "attribute",
+          "category": "invented_method_on_instance",
+          "hallucination": true,
+          "expected": "SUSPECT",
+          "actual": "SUSPECT",
+          "reason": "instance_attr_not_on_class",
+          "conforms": true
+        },
+        {
+          "file": "fixtures/cases/requests_seeded.py",
+          "line": 3,
+          "name": "requests.http_client",
+          "kind": "module",
+          "category": "wrong_module_path",
+          "hallucination": true,
+          "expected": "MISSING",
+          "actual": "MISSING",
+          "reason": "not_found",
+          "conforms": true
+        },
+        {
+          "file": "fixtures/cases/requests_seeded.py",
+          "line": 4,
+          "name": "get_json",
+          "kind": "attribute",
+          "category": "invented_function",
+          "hallucination": true,
+          "expected": "MISSING",
+          "actual": "MISSING",
+          "reason": "not_found",
+          "conforms": true
+        },
+        {
+          "file": "fixtures/cases/requests_seeded.py",
+          "line": 5,
+          "name": "RetryAdapter",
+          "kind": "attribute",
+          "category": "invented_function",
+          "hallucination": true,
+          "expected": "MISSING",
+          "actual": "MISSING",
+          "reason": "not_found",
+          "conforms": true
+        },
+        {
+          "file": "fixtures/cases/requests_seeded.py",
+          "line": 11,
+          "name": "timout",
+          "kind": "kwarg",
+          "category": "invented_kwarg_on_kwargs_func",
+          "hallucination": true,
+          "expected": "UNKNOWN",
+          "actual": "UNKNOWN",
+          "reason": "var_keyword",
+          "conforms": true
+        },
+        {
+          "file": "fixtures/cases/requests_seeded.py",
+          "line": 15,
+          "name": "retries",
+          "kind": "kwarg",
+          "category": "invented_kwarg_on_kwargs_func",
+          "hallucination": true,
+          "expected": "UNKNOWN",
+          "actual": "UNKNOWN",
+          "reason": "var_keyword",
+          "conforms": true
+        },
+        {
+          "file": "fixtures/cases/requests_seeded.py",
+          "line": 19,
+          "name": "param",
+          "kind": "kwarg",
+          "category": "invented_kwarg_on_kwargs_func",
+          "hallucination": true,
+          "expected": "UNKNOWN",
+          "actual": "UNKNOWN",
+          "reason": "var_keyword",
+          "conforms": true
+        },
+        {
+          "file": "fixtures/cases/requests_seeded.py",
+          "line": 23,
+          "name": "json_data",
+          "kind": "kwarg",
+          "category": "invented_kwarg_on_kwargs_func",
+          "hallucination": true,
+          "expected": "UNKNOWN",
+          "actual": "UNKNOWN",
+          "reason": "var_keyword",
+          "conforms": true
+        },
+        {
+          "file": "fixtures/cases/requests_seeded.py",
+          "line": 27,
+          "name": "follow_redirects",
+          "kind": "kwarg",
+          "category": "invented_kwarg_on_kwargs_func",
+          "hallucination": true,
+          "expected": "UNKNOWN",
+          "actual": "UNKNOWN",
+          "reason": "var_keyword",
+          "conforms": true
+        },
+        {
+          "file": "fixtures/cases/requests_seeded.py",
+          "line": 31,
+          "name": "allow_redirect",
+          "kind": "kwarg",
+          "category": "invented_kwarg_on_kwargs_func",
+          "hallucination": true,
+          "expected": "UNKNOWN",
+          "actual": "UNKNOWN",
+          "reason": "var_keyword",
+          "conforms": true
+        },
+        {
+          "file": "fixtures/cases/requests_seeded.py",
+          "line": 35,
+          "name": "timeout",
+          "kind": "kwarg",
+          "category": "invented_kwarg",
+          "hallucination": true,
+          "expected": "MISSING",
+          "actual": "MISSING",
+          "reason": "not_in_signature",
+          "conforms": true
+        },
+        {
+          "file": "fixtures/cases/requests_seeded.py",
+          "line": 36,
+          "name": "backoff",
+          "kind": "kwarg",
+          "category": "invented_kwarg",
+          "hallucination": true,
+          "expected": "MISSING",
+          "actual": "MISSING",
+          "reason": "not_in_signature",
+          "conforms": true
+        },
+        {
+          "file": "fixtures/cases/requests_seeded.py",
+          "line": 41,
+          "name": "pool_connection",
+          "kind": "kwarg",
+          "category": "misspelled",
+          "hallucination": true,
+          "expected": "MISSING",
+          "actual": "MISSING",
+          "reason": "not_in_signature",
+          "conforms": true
+        },
+        {
+          "file": "fixtures/cases/requests_seeded.py",
+          "line": 45,
+          "name": "fetch",
+          "kind": "attribute",
+          "category": "invented_function",
+          "hallucination": true,
+          "expected": "MISSING",
+          "actual": "MISSING",
+          "reason": "not_found",
+          "conforms": true
+        },
+        {
+          "file": "fixtures/cases/requests_seeded.py",
+          "line": 49,
+          "name": "urlopen",
+          "kind": "attribute",
+          "category": "wrong_place",
+          "hallucination": true,
+          "expected": "MISSING",
+          "actual": "MISSING",
+          "reason": "not_found",
+          "conforms": true
+        },
+        {
+          "file": "fixtures/cases/requests_seeded.py",
+          "line": 53,
+          "name": "get",
+          "kind": "attribute",
+          "category": "invented_function",
+          "hallucination": true,
+          "expected": "MISSING",
+          "actual": "MISSING",
+          "reason": "not_found",
+          "conforms": true
+        },
+        {
+          "file": "fixtures/cases/requests_seeded.py",
+          "line": 58,
+          "name": "set_timeout",
+          "kind": "attribute",
+          "category": "invented_method_on_instance",
+          "hallucination": true,
+          "expected": "SUSPECT",
+          "actual": "SUSPECT",
+          "reason": "instance_attr_not_on_class",
+          "conforms": true
+        },
+        {
+          "file": "fixtures/cases/requests_seeded.py",
+          "line": 64,
+          "name": "verify_ssl",
+          "kind": "kwarg",
+          "category": "invented_kwarg_on_kwargs_func",
+          "hallucination": true,
+          "expected": "UNKNOWN",
+          "actual": "UNKNOWN",
+          "reason": "var_keyword",
+          "conforms": true
+        },
+        {
+          "file": "fixtures/cases/requests_seeded.py",
+          "line": 69,
+          "name": "raise_on_error",
+          "kind": "kwarg",
+          "category": "invented_kwarg_on_kwargs_func",
+          "hallucination": true,
+          "expected": "UNKNOWN",
+          "actual": "UNKNOWN",
+          "reason": "var_keyword",
+          "conforms": true
+        },
+        {
+          "file": "fixtures/cases/requests_seeded.py",
+          "line": 75,
+          "name": "TimeoutError",
+          "kind": "attribute",
+          "category": "wrong_place",
+          "hallucination": true,
+          "expected": "MISSING",
+          "actual": "MISSING",
+          "reason": "not_found",
+          "conforms": true
+        },
+        {
+          "file": "fixtures/cases/requests_seeded.py",
+          "line": 77,
+          "name": "RateLimitError",
+          "kind": "attribute",
+          "category": "invented_function",
+          "hallucination": true,
+          "expected": "MISSING",
+          "actual": "MISSING",
+          "reason": "not_found",
+          "conforms": true
+        },
+        {
+          "file": "fixtures/cases/requests_seeded.py",
+          "line": 83,
+          "name": "status",
+          "kind": "attribute",
+          "category": "invented_method_on_instance",
+          "hallucination": true,
+          "expected": "UNKNOWN",
+          "actual": "UNKNOWN",
+          "reason": "instance_data_attr",
+          "conforms": true
+        },
+        {
+          "file": "fixtures/cases/requests_seeded.py",
+          "line": 85,
+          "name": "get_json",
+          "kind": "attribute",
+          "category": "invented_method_on_instance",
+          "hallucination": true,
+          "expected": "SUSPECT",
+          "actual": "SUSPECT",
+          "reason": "instance_attr_not_on_class",
+          "conforms": true
+        },
+        {
+          "file": "fixtures/cases/requests_seeded.py",
+          "line": 89,
+          "name": "unicode",
+          "kind": "attribute",
+          "category": "removed_in_version",
+          "hallucination": true,
+          "expected": "MISSING",
+          "actual": "MISSING",
+          "reason": "not_found",
+          "conforms": true
+        },
+        {
+          "file": "fixtures/cases/requests_seeded.py",
+          "line": 93,
+          "name": "gett",
+          "kind": "attribute",
+          "category": "misspelled",
+          "hallucination": true,
+          "expected": "MISSING",
+          "actual": "MISSING",
+          "reason": "not_found",
+          "conforms": true
+        },
+        {
+          "file": "fixtures/cases/requests_seeded.py",
+          "line": 97,
+          "name": "Sesion",
+          "kind": "attribute",
+          "category": "misspelled",
+          "hallucination": true,
+          "expected": "MISSING",
+          "actual": "MISSING",
+          "reason": "not_found",
+          "conforms": true
+        },
+        {
+          "file": "fixtures/cases/requests_seeded.py",
+          "line": 101,
+          "name": "CaseSensitiveDict",
+          "kind": "attribute",
+          "category": "invented_function",
+          "hallucination": true,
+          "expected": "MISSING",
+          "actual": "MISSING",
+          "reason": "not_found",
+          "conforms": true
+        },
+        {
+          "file": "fixtures/cases/requests_seeded.py",
+          "line": 105,
+          "name": "build_url",
+          "kind": "attribute",
+          "category": "invented_function",
+          "hallucination": true,
+          "expected": "MISSING",
+          "actual": "MISSING",
+          "reason": "not_found",
+          "conforms": true
+        },
+        {
+          "file": "fixtures/cases/requests_seeded.py",
+          "line": 114,
+          "name": "parsed_json",
+          "kind": "attribute",
+          "category": "invented_method_on_instance",
+          "hallucination": true,
+          "expected": "UNKNOWN",
+          "actual": "UNKNOWN",
+          "reason": "not_a_class",
+          "conforms": true
+        },
+        {
+          "file": "fixtures/cases/requests_seeded.py",
+          "line": 119,
+          "name": "is_success",
+          "kind": "attribute",
+          "category": "invented_method_on_instance",
+          "hallucination": true,
+          "expected": "UNKNOWN",
+          "actual": "UNKNOWN",
+          "reason": "not_a_class",
+          "conforms": true
+        },
+        {
+          "file": "fixtures/cases/yfinance_seeded.py",
+          "line": 3,
+          "name": "yfinance.scraper",
+          "kind": "module",
+          "category": "wrong_module_path",
+          "hallucination": true,
+          "expected": "MISSING",
+          "actual": "MISSING",
+          "reason": "not_found",
+          "conforms": true
+        },
+        {
+          "file": "fixtures/cases/yfinance_seeded.py",
+          "line": 4,
+          "name": "Screener",
+          "kind": "attribute",
+          "category": "invented_function",
+          "hallucination": true,
+          "expected": "MISSING",
+          "actual": "MISSING",
+          "reason": "not_found",
+          "conforms": true
+        },
+        {
+          "file": "fixtures/cases/yfinance_seeded.py",
+          "line": 6,
+          "name": "pdr_override",
+          "kind": "attribute",
+          "category": "removed_in_version",
+          "hallucination": true,
+          "expected": "MISSING",
+          "actual": "MISSING",
+          "reason": "not_found",
+          "conforms": true
+        },
+        {
+          "file": "fixtures/cases/yfinance_seeded.py",
+          "line": 12,
+          "name": "perid",
+          "kind": "kwarg",
+          "category": "invented_kwarg_on_kwargs_func",
+          "hallucination": true,
+          "expected": "UNKNOWN",
+          "actual": "UNKNOWN",
+          "reason": "wrapper_varkw",
+          "conforms": true
+        },
+        {
+          "file": "fixtures/cases/yfinance_seeded.py",
+          "line": 16,
+          "name": "get_history",
+          "kind": "attribute",
+          "category": "invented_function",
+          "hallucination": true,
+          "expected": "MISSING",
+          "actual": "MISSING",
+          "reason": "not_found",
+          "conforms": true
+        },
+        {
+          "file": "fixtures/cases/yfinance_seeded.py",
+          "line": 20,
+          "name": "period",
+          "kind": "kwarg",
+          "category": "invented_kwarg",
+          "hallucination": true,
+          "expected": "MISSING",
+          "actual": "MISSING",
+          "reason": "not_in_signature",
+          "conforms": true
+        },
+        {
+          "file": "fixtures/cases/yfinance_seeded.py",
+          "line": 25,
+          "name": "perod",
+          "kind": "kwarg",
+          "category": "invented_kwarg_on_kwargs_func",
+          "hallucination": true,
+          "expected": "UNKNOWN",
+          "actual": "UNKNOWN",
+          "reason": "wrapper_varkw",
+          "conforms": true
+        },
+        {
+          "file": "fixtures/cases/yfinance_seeded.py",
+          "line": 30,
+          "name": "get_price",
+          "kind": "attribute",
+          "category": "invented_method_on_instance",
+          "hallucination": true,
+          "expected": "SUSPECT",
+          "actual": "SUSPECT",
+          "reason": "instance_attr_not_on_class",
+          "conforms": true
+        },
+        {
+          "file": "fixtures/cases/yfinance_seeded.py",
+          "line": 35,
+          "name": "price_history",
+          "kind": "attribute",
+          "category": "invented_method_on_instance",
+          "hallucination": true,
+          "expected": "UNKNOWN",
+          "actual": "UNKNOWN",
+          "reason": "instance_data_attr",
+          "conforms": true
+        },
+        {
+          "file": "fixtures/cases/yfinance_seeded.py",
+          "line": 40,
+          "name": "get_eps_history",
+          "kind": "attribute",
+          "category": "invented_method_on_instance",
+          "hallucination": true,
+          "expected": "SUSPECT",
+          "actual": "SUSPECT",
+          "reason": "instance_attr_not_on_class",
+          "conforms": true
+        },
+        {
+          "file": "fixtures/cases/yfinance_seeded.py",
+          "line": 45,
+          "name": "limit",
+          "kind": "kwarg",
+          "category": "invented_kwarg",
+          "hallucination": true,
+          "expected": "SUSPECT",
+          "actual": "SUSPECT",
+          "reason": "instance_may_shadow",
+          "conforms": true
+        },
+        {
+          "file": "fixtures/cases/yfinance_seeded.py",
+          "line": 50,
+          "name": "years",
+          "kind": "kwarg",
+          "category": "invented_kwarg",
+          "hallucination": true,
+          "expected": "SUSPECT",
+          "actual": "SUSPECT",
+          "reason": "instance_may_shadow",
+          "conforms": true
+        },
+        {
+          "file": "fixtures/cases/yfinance_seeded.py",
+          "line": 55,
+          "name": "calls_only",
+          "kind": "kwarg",
+          "category": "invented_kwarg",
+          "hallucination": true,
+          "expected": "SUSPECT",
+          "actual": "SUSPECT",
+          "reason": "instance_may_shadow",
+          "conforms": true
+        },
+        {
+          "file": "fixtures/cases/yfinance_seeded.py",
+          "line": 60,
+          "name": "bogus_flag",
+          "kind": "kwarg",
+          "category": "invented_kwarg_on_kwargs_func",
+          "hallucination": true,
+          "expected": "UNKNOWN",
+          "actual": "UNKNOWN",
+          "reason": "var_keyword",
+          "conforms": true
+        },
+        {
+          "file": "fixtures/cases/yfinance_seeded.py",
+          "line": 64,
+          "name": "limit",
+          "kind": "kwarg",
+          "category": "invented_kwarg",
+          "hallucination": true,
+          "expected": "MISSING",
+          "actual": "MISSING",
+          "reason": "not_in_signature",
+          "conforms": true
+        },
+        {
+          "file": "fixtures/cases/yfinance_seeded.py",
+          "line": 68,
+          "name": "refresh",
+          "kind": "kwarg",
+          "category": "invented_kwarg",
+          "hallucination": true,
+          "expected": "MISSING",
+          "actual": "MISSING",
+          "reason": "not_in_signature",
+          "conforms": true
+        },
+        {
+          "file": "fixtures/cases/yfinance_seeded.py",
+          "line": 72,
+          "name": "create",
+          "kind": "kwarg",
+          "category": "invented_kwarg",
+          "hallucination": true,
+          "expected": "MISSING",
+          "actual": "MISSING",
+          "reason": "not_in_signature",
+          "conforms": true
+        },
+        {
+          "file": "fixtures/cases/yfinance_seeded.py",
+          "line": 76,
+          "name": "DataFrame",
+          "kind": "attribute",
+          "category": "wrong_place",
+          "hallucination": true,
+          "expected": "MISSING",
+          "actual": "MISSING",
+          "reason": "not_found",
+          "conforms": true
+        },
+        {
+          "file": "fixtures/cases/yfinance_seeded.py",
+          "line": 80,
+          "name": "read_csv",
+          "kind": "attribute",
+          "category": "wrong_place",
+          "hallucination": true,
+          "expected": "MISSING",
+          "actual": "MISSING",
+          "reason": "not_found",
+          "conforms": true
+        },
+        {
+          "file": "fixtures/cases/yfinance_seeded.py",
+          "line": 84,
+          "name": "Quote",
+          "kind": "attribute",
+          "category": "invented_function",
+          "hallucination": true,
+          "expected": "MISSING",
+          "actual": "MISSING",
+          "reason": "not_found",
+          "conforms": true
+        },
+        {
+          "file": "fixtures/cases/yfinance_seeded.py",
+          "line": 88,
+          "name": "Tickrs",
+          "kind": "attribute",
+          "category": "misspelled",
+          "hallucination": true,
+          "expected": "MISSING",
+          "actual": "MISSING",
+          "reason": "not_found",
+          "conforms": true
+        },
+        {
+          "file": "fixtures/cases/yfinance_seeded.py",
+          "line": 92,
+          "name": "histroy",
+          "kind": "attribute",
+          "category": "misspelled",
+          "hallucination": true,
+          "expected": "SUSPECT",
+          "actual": "SUSPECT",
+          "reason": "instance_attr_not_on_class",
+          "conforms": true
+        },
+        {
+          "file": "fixtures/cases/yfinance_seeded.py",
+          "line": 97,
+          "name": "moving_average",
+          "kind": "attribute",
+          "category": "invented_method_on_instance",
+          "hallucination": true,
+          "expected": "UNKNOWN",
+          "actual": "NOT_CHECKED",
+          "reason": null,
+          "conforms": false
+        },
+        {
+          "file": "fixtures/cases/yfinance_seeded.py",
+          "line": 102,
+          "name": "to_list",
+          "kind": "attribute",
+          "category": "invented_method_on_instance",
+          "hallucination": true,
+          "expected": "UNKNOWN",
+          "actual": "NOT_CHECKED",
+          "reason": null,
+          "conforms": false
+        }
+      ]
+    }
+  },
+  "summary": {
+    "ok": 1292,
+    "missing": 62,
+    "suspect": 24,
+    "unknown": 207,
+    "by_reason": {
+      "MISSING": {
+        "not_found": 47,
+        "not_in_signature": 15
+      },
+      "SUSPECT": {
+        "instance_attr_not_on_class": 13,
+        "instance_may_shadow": 4,
+        "untrusted_signature": 7
+      },
+      "UNKNOWN": {
+        "assigned_in_file": 11,
+        "descriptor_callable": 6,
+        "guarded": 17,
+        "instance_data_attr": 16,
+        "local_module": 1,
+        "no_signature": 15,
+        "not_a_class": 69,
+        "var_keyword": 57,
+        "wrapper_varkw": 15
+      }
+    }
+  },
+  "socket_guard": "network calls during import yfinance: []",
+  "gate_failures": []
+}

@@ -1,0 +1,10 @@
+import numpy as np
+x = np.float64(1.5)
+i = np.int64(7)
+print(x.item(), x.is_integer(), x.real, x.as_integer_ratio(), i.bit_count(), i.itemsize, i.dtype, x.hex() if hasattr(float, "hex") else 0)
+g = np.random.Generator(np.random.PCG64(seed=1))
+print(g.normal(loc=1.0, scale=2.0, size=2), g.bit_generator.state["bit_generator"])
+a = np.array([1.0, 2.0])
+print(a.mean(axis=0), a.std(ddof=1), a.astype(np.float32).nbytes, a.flags.writeable, a.ctypes.data > 0)
+dt = np.dtype([("a", "i4")])
+print(dt.names, dt.fields, np.datetime64("2024-01-01").astype("datetime64[D]"))

@@ -1,0 +1,8 @@
+{
+  "name": "api-reality-check",
+  "version": "0.1.0",
+  "description": "After each Write/Edit of a .py file, checks that its imports, attributes and keyword arguments exist in your installed library versions. Analysis only; never modifies files.",
+  "author": { "name": "Rajib Bahar" },
+  "license": "MIT",
+  "keywords": ["python", "hallucination", "static-analysis"]
+}

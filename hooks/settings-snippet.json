@@ -1,0 +1,16 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 -I -S -B /ABSOLUTE/PATH/TO/api-reality-check/hooks/run_hook.py",
+            "timeout": 60
+          }
+        ]
+      }
+    ]
+  }
+}

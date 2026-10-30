@@ -1,0 +1,43 @@
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[project]
+name = "api-reality-check"
+version = "0.1.0"
+description = "Checks that the imports, attributes and keyword arguments in AI-written Python exist in your installed library versions."
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "Rajib Bahar" }]
+keywords = ["static-analysis", "hallucination", "claude-code", "linter"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: POSIX",
+    "Topic :: Software Development :: Quality Assurance",
+]
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest==9.2.0"]
+
+[project.scripts]
+api-reality-check = "api_reality_check.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/api_reality_check"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+addopts = "-ra"
+
+[tool.ruff]
+# Fixture cases are analyser inputs with deliberate errors, not project code.
+extend-exclude = ["fixtures/cases"]
+
+[tool.ruff.lint]
+# Pinned so results do not change with the default rule set of newer ruff releases.
+select = ["E4", "E7", "E9", "F"]
+per-file-ignores = { "fixtures/build_manifest.py" = ["E731", "E741"] }
