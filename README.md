@@ -4,6 +4,10 @@ Checks that the imports, attributes and keyword arguments in AI-written Python e
 
 Version 0.1. The tool needs Python 3.10 or later. It has no runtime dependencies.
 
+![api-reality-check reports a misspelled pandas keyword argument and a misspelled numpy function as MISSING, each with a closest-match suggestion](docs/images/02-missing.png)
+
+*The tool finds `index_coll=` and `np.linspce`, and suggests `index_col` and `linspace`.*
+
 ## What it does
 
 AI tools often write calls to APIs that do not exist. The names can be misspelled, invented, removed in your version, or in the wrong module. This tool reads a Python file and finds each module, attribute chain and keyword argument that the file uses. It then asks the target interpreter if each one exists. The target interpreter is the Python of the virtual environment where the libraries are installed.
@@ -37,6 +41,40 @@ The tool reports `np.linspce` as MISSING. It does not report `timout=5`, because
 ```
 example.py:5:40: UNKNOWN kwarg `requests.get(timout=)` [requests 2.34.2] (var_keyword)
 ```
+
+## How to use
+
+These images come from real runs of the tool. `scripts/screenshots.py` makes them again (see `scripts/README.md`).
+
+1. Install the tool and check the version.
+
+   ![The output of api-reality-check --version and the first lines of --help](docs/images/01-install.png)
+
+   *`--version` and `--help` show that the install worked.*
+
+2. Run it on a file, with `--python` set to the interpreter of the venv that has your libraries.
+
+   ![A file with two hallucinated names gives two MISSING findings and exit code 1](docs/images/02-missing.png)
+
+   *Each MISSING finding has the file, line, name and a closest-match suggestion. The exit code is 1.*
+
+3. A correct file gives no MISSING findings.
+
+   ![A correct pandas, numpy and requests file gives MISSING 0 and exit code 0](docs/images/03-clean.png)
+
+   *The exit code is 0. UNKNOWN items do not change the exit code.*
+
+4. Use `--show-unknown` to see the items that the tool cannot prove.
+
+   ![Typos in kwargs to requests.get and requests.post are UNKNOWN because these functions accept **kwargs](docs/images/04-show-unknown.png)
+
+   *`requests.get` accepts `**kwargs`, so the tool cannot prove that `timout=` is wrong. It reports UNKNOWN, not MISSING.*
+
+5. Use the Claude Code hook to check each `.py` file that Claude writes or edits.
+
+   ![The PostToolUse hook prints JSON whose additionalContext lists the two MISSING findings](docs/images/05-hook.png)
+
+   *The hook sends the findings to Claude as `additionalContext`. The exit code is always 0.*
 
 ## How it differs from package-name checkers
 

@@ -2,7 +2,7 @@
 
 Status: Proposed (becomes Accepted when the v0.1 eval reports precision on the fixture set)
 Date: 2026-10-29
-Deciders: project owner (rajib.bahar@gmail.com); design drafted by Claude
+Deciders: project owner; design drafted by Claude
 
 ## Context
 api-reality-check must say, for AI-written Python, whether each imported module, attribute chain and
