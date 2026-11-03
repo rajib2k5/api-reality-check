@@ -13,9 +13,9 @@ First run only, if Chromium is missing:
     uv run --with playwright==1.62.0 python -m playwright install chromium
 
 What it does:
-  1. Recreates /tmp/arc-demo (neutral dir). Builds /tmp/arc-demo/.venv (target libraries: pandas, numpy,
-     requests, pinned) and /tmp/arc-demo/tool (api-reality-check installed from this repo).
-  2. Writes short demo files, runs the REAL commands with cwd=/tmp/arc-demo, HOME=/tmp/arc-demo,
+  1. Recreates /tmp/demo-api-reality-check (neutral dir). Builds /tmp/demo-api-reality-check/.venv (target libraries: pandas, numpy,
+     requests, pinned) and /tmp/demo-api-reality-check/tool (api-reality-check installed from this repo).
+  2. Writes short demo files, runs the REAL commands with cwd=/tmp/demo-api-reality-check, HOME=/tmp/demo-api-reality-check,
      USER=demo and relative arguments, and captures stdout+stderr and exit codes.
   3. Renders each session as a terminal frame (rich SVG), then converts it to PNG with
      headless Chromium (Playwright).
@@ -38,7 +38,7 @@ from rich.text import Text
 
 REPO = Path(__file__).resolve().parent.parent
 OUT = REPO / "docs" / "images"
-DEMO = Path("/tmp/arc-demo")
+DEMO = Path("/tmp/demo-api-reality-check")
 SVG_DIR = DEMO / "svg"
 LIBS = ["pandas==3.1.0", "numpy==2.5.4", "requests==2.34.2"]
 FORBIDDEN = ["/home/", "rajib", "@gmail", "github_pat_", "ghp_"]
@@ -81,13 +81,13 @@ grid = np.linspce(0, 1, 5)
 
 PAYLOAD = (
     '{"hook_event_name":"PostToolUse","tool_name":"Write",'
-    '"tool_input":{"file_path":"/tmp/arc-demo/project/app.py"},"cwd":"/tmp/arc-demo/project"}'
+    '"tool_input":{"file_path":"/tmp/demo-api-reality-check/project/app.py"},"cwd":"/tmp/demo-api-reality-check/project"}'
 )
 
 HOOK_CMD = (
-    "CLAUDE_PLUGIN_ROOT=/tmp/arc-demo/plugins/api-reality-check "
-    "CLAUDE_PROJECT_DIR=/tmp/arc-demo/project "
-    "API_REALITY_CHECK_PYTHON=/tmp/arc-demo/.venv/bin/python "
+    "CLAUDE_PLUGIN_ROOT=/tmp/demo-api-reality-check/plugins/api-reality-check "
+    "CLAUDE_PROJECT_DIR=/tmp/demo-api-reality-check/project "
+    "API_REALITY_CHECK_PYTHON=/tmp/demo-api-reality-check/.venv/bin/python "
     "python3 -I -S -B plugins/api-reality-check/hooks/run_hook.py < payload.json > out.json"
 )
 
@@ -120,11 +120,11 @@ SHOTS = [
 
 # Environment for every demo command: no real HOME, USER or PATH entries from this machine.
 DEMO_ENV = {
-    "HOME": "/tmp/arc-demo",
+    "HOME": "/tmp/demo-api-reality-check",
     "USER": "demo",
     "LOGNAME": "demo",
     "PS1": "$ ",
-    "PATH": "/tmp/arc-demo/tool/bin:/usr/local/bin:/usr/bin:/bin",
+    "PATH": "/tmp/demo-api-reality-check/tool/bin:/usr/local/bin:/usr/bin:/bin",
     "LANG": "C.UTF-8",
     "COLUMNS": str(WIDTH),
 }
@@ -134,10 +134,17 @@ def run(cmd: list[str], **kw) -> subprocess.CompletedProcess:
     return subprocess.run(cmd, check=True, text=True, capture_output=True, **kw)
 
 
+MARKER = DEMO / ".made-by-api-reality-check-screenshots"
+
+
 def setup() -> None:
+    # Only delete a directory this script made: it holds the marker file.
     if DEMO.exists():
+        if not MARKER.is_file():
+            sys.exit(f"{DEMO} exists but was not made by this script; remove it yourself or change DEMO.")
         shutil.rmtree(DEMO)
     DEMO.mkdir(parents=True)
+    MARKER.write_text("")
     run(["uv", "venv", "--python", "3.12", str(DEMO / ".venv")])
     run(["uv", "pip", "install", "--python", str(DEMO / ".venv/bin/python"), *LIBS])
     run(["uv", "venv", str(DEMO / "tool")])
